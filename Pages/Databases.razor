@@ -1,0 +1,49 @@
+@page "/databases"
+
+<PageTitle>Databases</PageTitle>
+
+
+<h1>Databases</h1>
+UserName: @username
+
+<p>
+    <label>Host</label><input type="text" name="host" @bind="host">
+</p>
+<p>
+    <label>DB Name</label><input type="text" name="databaseName" @bind="databaseName">
+</p>
+<p>
+    <label>DB Port</label><input type="text" name="databasePort" @bind="databasePort">
+</p>
+<p>
+    <button @onclick="connectToDatabase"> Connect to database</button>
+</p>
+
+<p>
+    <label>Database Version: @dbVersion</label>
+</p>
+<p>
+    <label>Tables: @tables</label>
+</p>
+
+
+
+
+
+@code {
+    private string host = "localhost";
+    private string databaseName = "testdb";
+    private string databasePort = "5000";
+    private PostgresConnector connector;
+    private string? dbVersion;
+    private string? tables;
+    private void connectToDatabase() 
+    {
+        connector = new PostgresConnector(host, databaseName, databasePort);
+        dbVersion = connector.GetDatabaseVersion(host, databaseName, databasePort);
+        tables = connector.GetTables();
+    }
+    private string? username = PostgresConnector.GetUsername();
+
+}
+
