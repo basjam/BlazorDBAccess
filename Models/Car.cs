@@ -6,7 +6,7 @@ namespace DBAccess.Models
         {
             NEW, USED, DAMAGED, REBUILT
         }
-        public int UUID { get; set; }
+        public Guid UUID { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
         public decimal Price { get; set; }
